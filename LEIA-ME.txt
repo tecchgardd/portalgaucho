@@ -1,0 +1,23 @@
+PORTAL GAÚCHO — LANDING PAGE
+
+COMO ABRIR
+1. Nesta pasta rode: python -m http.server 8000
+2. Acesse http://localhost:8000
+   (Os vídeos do YouTube precisam de http://, não abra o arquivo direto com duplo clique.)
+
+PUBLICAÇÃO
+Envie index.html, styles.css, app.js e a pasta assets para uma hospedagem estática.
+Não é necessário instalar dependências nem compilar o projeto.
+
+ARQUIVOS
+index.html: conteúdo e estrutura (hero, lançamento, história, Victor Pedroso, banda,
+            clipes, faixas, discografia, podcasts, ônibus, galeria, contratação).
+styles.css: paleta do ônibus, layout, responsividade e animações.
+app.js:     menu, barra de progresso, revelações no scroll, contadores, faíscas do hero,
+            cards 3D, palco de clipes + carrossel, coverflow da discografia,
+            linha do tempo horizontal, modal de vídeo e galeria ampliada.
+assets/:    logo (original e amarela), fotos, capas, miniaturas de clipes e podcasts.
+ASSETS.md:  de onde veio cada fato, número e imagem.
+
+ANIMAÇÕES
+Quem usa "reduzir movimento" no sistema vê a página completa, sem animações.
