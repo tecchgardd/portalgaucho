@@ -1,4 +1,18 @@
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* ============ AGENDA: EDITE AQUI ============
+   Uma linha por show. Datas que já passaram somem sozinhas.
+   { date: 'AAAA-MM-DD', time: '23h', city: 'Cidade', uf: 'SC', venue: 'Local', tickets: 'link (opcional)', note: 'texto curto (opcional)' }
+   Exemplo:
+   { date: '2026-11-07', time: '23h', city: 'Joinville', uf: 'SC', venue: 'Nome do clube', tickets: 'https://...' },
+*/
+const SHOWS = [
+  // Agenda da semana — post do Instagram @portalgauchoaovivo (21/10/2026)
+  { date: '2026-10-23', city: 'Curitiba', uf: 'PR', venue: 'Club Kalech' },
+  { date: '2026-10-24', city: 'Santa Cecília', uf: 'SC', venue: 'Milenium Centro Eventos' },
+  { date: '2026-10-24', city: 'Curitibanos', uf: 'SC', venue: 'Rancho Xaxin' },
+  { date: '2026-10-25', city: 'Agronômica', uf: 'SC', venue: 'Clube Mosquito' },
+];
+
+const reduceMotion =window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -276,6 +290,55 @@ function initVideoModal() {
   dlg.addEventListener('close', () => frame.replaceChildren());
 }
 
+/* ============ AGENDA ============ */
+function initAgenda() {
+  const list = $('#showList');
+  const more = $('#showMore');
+  const empty = $('#agendaEmpty');
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const MONTHS = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  const WEEK = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  const upcoming = SHOWS
+    .map(s => ({ ...s, d: new Date(s.date + 'T12:00:00') }))
+    .filter(s => !isNaN(s.d) && s.d >= today)
+    .sort((a, b) => a.d - b.d);
+
+  if (!upcoming.length) {
+    list.hidden = true;
+    empty.hidden = false;
+    $('#agendaLead').textContent = 'As datas novas são divulgadas no Instagram oficial. Enquanto isso, a tua cidade pode entrar na rota.';
+    return;
+  }
+
+  const isToday = d => d.toDateString() === new Date().toDateString();
+  list.innerHTML = upcoming.map((s, i) => {
+    const maps = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent([s.venue, s.city, s.uf].filter(Boolean).join(', '));
+    return `<li class="show reveal${i >= 6 ? ' extra' : ''}" style="--i:${i % 6}">
+      <div class="show-date"><b>${String(s.d.getDate()).padStart(2, '0')}</b><span>${MONTHS[s.d.getMonth()]}</span><small>${WEEK[s.d.getDay()]}</small></div>
+      <div class="show-place"><strong>${esc(s.city)}${s.uf ? ` <em>${esc(s.uf)}</em>` : ''}</strong><span>${esc(s.venue)}${s.time ? ` · ${esc(s.time)}` : ''}</span>${s.note ? `<small>${esc(s.note)}</small>` : ''}</div>
+      <span class="show-status${isToday(s.d) ? ' today' : ''}">${isToday(s.d) ? 'É hoje!' : 'Confirmado'}</span>
+      <div class="show-acts">
+        ${s.tickets ? `<a class="chip chip-gold" href="${esc(s.tickets)}" target="_blank" rel="noopener noreferrer">Ingressos</a>` : ''}
+        <a class="chip chip-line" href="${maps}" target="_blank" rel="noopener noreferrer">Como chegar</a>
+      </div>
+    </li>`;
+  }).join('');
+
+  $('#agendaIg').hidden = false;
+  const n = upcoming.length;
+  $('#agendaLead').textContent = `${n} ${n === 1 ? 'data confirmada' : 'datas confirmadas'}. Anota aí e chama a turma.`;
+  if (n > 6) {
+    more.hidden = false;
+    more.textContent = `Ver as ${n} datas`;
+    more.addEventListener('click', () => {
+      const open = list.classList.toggle('all');
+      more.textContent = open ? 'Mostrar menos' : `Ver as ${n} datas`;
+    });
+  }
+}
+
 /* ============ LANÇAMENTO: PQP TOCANDO DE CARA ============ */
 // navegadores só deixam o vídeo começar sozinho se estiver mudo; o botão "Ativar som" libera o áudio
 let pauseRelease = () => {};
@@ -527,6 +590,7 @@ function initLightbox() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initAgenda(); // antes do reveal, para as linhas novas entrarem animadas
   initMenu();
   initScroll();
   initReveal();

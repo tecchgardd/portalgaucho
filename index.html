@@ -82,6 +82,7 @@
   <nav id="menu" aria-label="Menu principal">
     <a href="#historia" data-nav="historia">História</a>
     <a href="#clipes" data-nav="musica">Música</a>
+    <a href="#agenda" data-nav="agenda">Agenda</a>
     <a href="#podcasts" data-nav="podcasts">Podcasts</a>
     <a href="#galeria" data-nav="galeria">Galeria</a>
     <a href="#plataformas" data-nav="plataformas">Ouça e siga</a>
@@ -400,6 +401,38 @@
       <button class="round" data-cf="-1" aria-label="Disco anterior">←</button>
       <div class="cf-dots" id="cfDots"></div>
       <button class="round" data-cf="1" aria-label="Próximo disco">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AGENDA ============ -->
+<section class="agenda section" id="agenda" data-group="agenda" aria-labelledby="agendaTitle">
+  <div class="section-head split-head">
+    <div>
+      <p class="kicker reveal">Agenda de shows</p>
+      <h2 id="agendaTitle" class="title split">Onde o Portal <em>vai tocar.</em></h2>
+    </div>
+    <p class="reveal" id="agendaLead">As próximas datas do baile. Anota aí e chama a turma.</p>
+  </div>
+
+  <ol class="shows" id="showList" aria-label="Próximos shows"></ol>
+  <button class="btn btn-line sm shows-more" id="showMore" hidden>Ver todas as datas</button>
+  <a class="agenda-ig" id="agendaIg" href="https://www.instagram.com/portalgauchoaovivo/" target="_blank" rel="noopener noreferrer" hidden><img src="https://cdn.simpleicons.org/instagram/ffc400" alt="" width="16" height="16">Agenda completa e novas datas no Instagram</a>
+
+  <!-- aparece quando não há datas cadastradas em SHOWS (app.js) -->
+  <div class="agenda-empty reveal" id="agendaEmpty" hidden>
+    <div class="ae-ticket">
+      <span class="ae-stamp" aria-hidden="true">Em breve</span>
+      <p class="kicker">Próximas datas</p>
+      <h3>A agenda sai primeiro <em>no Instagram.</em></h3>
+      <p>Cidades, datas e locais dos próximos bailes são anunciados no perfil oficial do Portal.</p>
+      <a class="btn btn-gold" href="https://www.instagram.com/portalgauchoaovivo/" target="_blank" rel="noopener noreferrer"><img src="https://cdn.simpleicons.org/instagram/0a0607" alt="" width="18" height="18">Ver a agenda no Instagram</a>
+    </div>
+    <div class="ae-city">
+      <p class="kicker">Tua cidade</p>
+      <h3>A próxima data <em>pode ser a tua.</em></h3>
+      <p>Clube, CTG, festa da cidade ou evento particular: fala com a produção e reserva o Portal.</p>
+      <a class="btn btn-dark" href="https://wa.me/5551999626260?text=Ol%C3%A1%21%20Quero%20levar%20o%20Portal%20Ga%C3%BAcho%20para%20a%20minha%20cidade.%20Quais%20datas%20est%C3%A3o%20dispon%C3%ADveis%3F" target="_blank" rel="noopener noreferrer"><img src="https://cdn.simpleicons.org/whatsapp/ffc400" alt="" width="18" height="18">Consultar datas</a>
     </div>
   </div>
 </section>

@@ -19,5 +19,12 @@ app.js:     menu, barra de progresso, revelações no scroll, contadores, faísc
 assets/:    logo (original e amarela), fotos, capas, miniaturas de clipes e podcasts.
 ASSETS.md:  de onde veio cada fato, número e imagem.
 
+AGENDA DE SHOWS
+Abra app.js e preencha a lista SHOWS logo no topo, uma linha por show:
+  { date: '2026-11-07', time: '23h', city: 'Joinville', uf: 'SC', venue: 'Nome do local', tickets: 'link dos ingressos' },
+- date no formato AAAA-MM-DD; time, tickets e note são opcionais.
+- Datas que já passaram somem sozinhas. No dia do show aparece "É hoje!".
+- Com a lista vazia, a seção mostra o convite para o Instagram e o botão de consultar datas.
+
 ANIMAÇÕES
 Quem usa "reduzir movimento" no sistema vê a página completa, sem animações.
